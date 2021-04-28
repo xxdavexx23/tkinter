@@ -1,4 +1,6 @@
 from tkinter import*
+from tkinter import ttk
+import time
 
 
 window = Tk()
@@ -29,6 +31,19 @@ my_devices.append(a)
 def myClick():
     search_window(window)
 
+'''def myClick_start_search():
+    for x in range(5):
+         my_progress['value'] += 20
+         root.update_idletasks()
+         time.sleep(1)
+         if my_progress['value']==100:
+            my_progress.stop()
+            
+    canvas = Canvas(window, bg= '#e8c3d2')
+    canvas.grid(row= 2, column= 0)
+    canvas.create_line(0, 0, 100, 100, arrow=LAST)'''
+
+
 
 def welcome_window():
     column_tracker = 0;
@@ -53,6 +68,18 @@ def welcome_window():
     #button.grid(row=row_tracker, column=column_tracker)
 
 def search_window(window):
+
+    def myClick_start_search():
+        for x in range(5):
+            my_progress['value'] += 20
+            window.update_idletasks()
+            time.sleep(1)
+            if my_progress['value'] == 100:
+                my_progress.stop()
+
+        canvas = Canvas(window, bg='#e8c3d2')
+        canvas.grid(row=2, column=0)
+        canvas.create_line(0, 0, 100, 100, arrow=LAST)
     for w in window.winfo_children():
         w.destroy()
     window.title('Search Window')
@@ -60,10 +87,13 @@ def search_window(window):
     row_tracker = 0;
     label1 = Label(window, text= f'Begin Searching for Device', font = 10 ,bg= "#e8c3d2", padx = 40, pady=20)
     label1.grid(row = row_tracker, column=column_tracker)
-    column_tracker += 1
     row_tracker +=1
+    my_progress = ttk.Progressbar(window, orient=HORIZONTAL, length=300, mode='determinate')
+    my_progress.grid(row=row_tracker, column=column_tracker)
+    row_tracker += 1
+
     button = Button(window, text=f'SEARCH',
-                    font=10, padx=10, pady=20, command=myClick, bg='#b5c3d2', fg='white')
+                    font=10, padx=10, pady=20, command=myClick_start_search, bg='#b5c3d2', fg='white')
     button.grid(row=row_tracker, column=column_tracker)
 
 welcome_window()
